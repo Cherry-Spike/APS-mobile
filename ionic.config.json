@@ -1,0 +1,7 @@
+{
+  "name": "apsMobile",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "vue"
+}
