@@ -9,7 +9,8 @@ const routes = [
     path: '/home',
     name: 'Home',
     component: () => import('@/views/Home.vue')
-  }
+  },
+  { path: '/pollution-city', component: () => import('@/views/PollutionCity.vue') },
 ]
 
 const router = createRouter({
