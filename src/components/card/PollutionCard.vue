@@ -1,19 +1,22 @@
 <template>
-  <ion-card>
-    <ion-searchbar type="text" debounce="0" placeholder="Digite a cidade">
-    </ion-searchbar>
-  </ion-card>
+  <ion-searchbar
+    type="text"
+    debounce="1000"
+    @ionChange="getCity($event.target.value)"
+    clear-input
+    placeholder="Digite a cidade"
+  >
+  </ion-searchbar>
   <ion-loading
     :is-open="isOpenRef"
     message="Carregando..."
-    :duration="isLoaded == false"
     @didDismiss="setOpen(false)"
   >
   </ion-loading>
-  <ion-card v-if="isLoaded">
+  <ion-card v-if="cityNotFound == false">
     <ion-card-header>
       <ion-card-subtitle>Cidade</ion-card-subtitle>
-      <ion-card-title>{{ pollutionData.city.name }}</ion-card-title>
+      <ion-card-title>{{ pollutionData.name }}</ion-card-title>
     </ion-card-header>
     <ion-card-content>
       <ion-list>
@@ -24,24 +27,29 @@
           <ion-note slot="end">{{ pollutionData.aqi }}</ion-note>
         </ion-item>
         <ion-item>
+          <ion-label>CO</ion-label>
+          <ion-note slot="end">{{ pollutionData.co }}</ion-note>
+        </ion-item>
+        <ion-item>
           <ion-label>NO2</ion-label>
-          <ion-note slot="end">{{ pollutionData.iaqi.no2.v }}</ion-note>
+          <ion-note slot="end">{{ pollutionData.no2 }}</ion-note>
         </ion-item>
         <ion-item>
           <ion-label>O3</ion-label>
-          <ion-note slot="end">{{ pollutionData.iaqi.o3.v }}</ion-note>
+          <ion-note slot="end">{{ pollutionData.o3 }}</ion-note>
         </ion-item>
         <ion-item>
           <ion-label>PM10</ion-label>
-          <ion-note slot="end">{{ pollutionData.iaqi.pm10.v }}</ion-note>
+          <ion-note slot="end">{{ pollutionData.pm10 }}</ion-note>
         </ion-item>
         <ion-item>
           <ion-label>PM25</ion-label>
-          <ion-note slot="end"> {{ pollutionData.iaqi.pm25.v }}</ion-note>
+          <ion-note slot="end"> {{ pollutionData.pm25 }}</ion-note>
         </ion-item>
       </ion-list>
     </ion-card-content>
   </ion-card>
+  <ion-card-content v-else>Cidade não encontrada</ion-card-content>
 </template>
 
 <script>
@@ -81,21 +89,43 @@ export default defineComponent({
 
     return { isOpenRef, setOpen };
   },
-  data: () => ({ pollutionData: {}, isLoaded: false }),
+  data: () => ({
+    pollutionData: { name: "", aqi: 0, co: 0, no2: 0, o3: 0, pm10: 0, pm25: 0 },
+    cityNotFound: true,
+  }),
   mounted() {
-    this.setOpen(true);
     this.getCity("Jundiai");
   },
   methods: {
     getCity(name) {
+      this.setOpen(true);
+      this.cityNotFound = true;
+
+      if (name.length < 1) {
+        this.setOpen(false);
+        return;
+      }
+
       axios
         .get(
           `http://api.waqi.info/feed/${name}/?token=5aec0c4d5d22e411de1c9c28e35562c1c3063bb6`
         )
         .then((response) => {
-          this.isLoaded = true;
           this.setOpen(false);
-          this.pollutionData = response.data.data;
+          let data = response.data.data;
+          if (data != "Unknown station") {
+            this.pollutionData = {
+              name: data.city.name ? data.city.name : "❓",
+              aqi: data.aqi ? data.aqi : "❓",
+              co: data.iaqi.co ? data.iaqi.co.v : "❓",
+              no2: data.iaqi.no2 ? data.iaqi.no2.v : "❓",
+              o3: data.iaqi.o3 ? data.iaqi.o3.v : "❓",
+              pm10: data.iaqi.pm10 ? data.iaqi.pm10.v : "❓",
+              pm25: data.iaqi.pm25 ? data.iaqi.pm25.v : "❓",
+            };
+
+            this.cityNotFound = false;
+          }
         })
         .catch((error) => console.log(error));
     },
