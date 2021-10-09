@@ -20,31 +20,35 @@
     </ion-card-header>
     <ion-card-content>
       <ion-list>
-        <ion-list-header>Qualidade atmosférica</ion-list-header>
+        <ion-list-header>Índice de qualidade do ar</ion-list-header>
         <ion-item>
           <ion-label>AQI</ion-label>
           <ion-note slot="end">{{ pollutionData.aqi }}</ion-note>
         </ion-item>
         <ion-list-header>Informações atmosféricas</ion-list-header>
         <ion-item>
-          <ion-label>CO</ion-label>
+          <ion-label>Co</ion-label>
+          <ion-card-subtitle>(Monóxido de carbono)</ion-card-subtitle>
           <ion-note slot="end">{{ pollutionData.co }}</ion-note>
         </ion-item>
         <ion-item>
-          <ion-label>NO2</ion-label>
-          <ion-card-subtitle>(Oxido de nitrogênio)</ion-card-subtitle>
+          <ion-label>No²</ion-label>
+          <ion-card-subtitle>(Óxido de nitrogênio)</ion-card-subtitle>
           <ion-note slot="end">{{ pollutionData.no2 }}</ion-note>
         </ion-item>
         <ion-item>
-          <ion-label>O3</ion-label>
+          <ion-label>O³</ion-label>
+          <ion-card-subtitle>(Ozônio)</ion-card-subtitle>
           <ion-note slot="end">{{ pollutionData.o3 }}</ion-note>
         </ion-item>
         <ion-item>
           <ion-label>PM10</ion-label>
+          <ion-card-subtitle>(Partículas poluentes)</ion-card-subtitle>
           <ion-note slot="end">{{ pollutionData.pm10 }}</ion-note>
         </ion-item>
         <ion-item>
           <ion-label>PM25</ion-label>
+          <ion-card-subtitle>(Partículas cancerígenas)</ion-card-subtitle>
           <ion-note slot="end"> {{ pollutionData.pm25 }}</ion-note>
         </ion-item>
       </ion-list>
