@@ -7,7 +7,7 @@
 </template>
 
 <script>
-import PollutionCard from "@/components/PollutionCard.vue";
+import PollutionCard from "@/components/card/PollutionCard.vue";
 export default {
   components: {
     PollutionCard,
