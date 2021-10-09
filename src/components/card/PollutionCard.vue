@@ -20,18 +20,19 @@
     </ion-card-header>
     <ion-card-content>
       <ion-list>
-        <ion-list-header>Informaçoẽs atmosféricas</ion-list-header>
-
+        <ion-list-header>Qualidade atmosférica</ion-list-header>
         <ion-item>
           <ion-label>AQI</ion-label>
           <ion-note slot="end">{{ pollutionData.aqi }}</ion-note>
         </ion-item>
+        <ion-list-header>Informações atmosféricas</ion-list-header>
         <ion-item>
           <ion-label>CO</ion-label>
           <ion-note slot="end">{{ pollutionData.co }}</ion-note>
         </ion-item>
         <ion-item>
           <ion-label>NO2</ion-label>
+          <ion-card-subtitle>(Oxido de nitrogênio)</ion-card-subtitle>
           <ion-note slot="end">{{ pollutionData.no2 }}</ion-note>
         </ion-item>
         <ion-item>
@@ -65,6 +66,7 @@ import {
   IonListHeader,
   IonNote,
   IonLoading,
+  IonLabel,
 } from "@ionic/vue";
 import { defineComponent, ref } from "vue";
 import axios from "axios";
@@ -82,6 +84,7 @@ export default defineComponent({
     IonListHeader,
     IonNote,
     IonLoading,
+    IonLabel,
   },
   setup() {
     const isOpenRef = ref(false);
