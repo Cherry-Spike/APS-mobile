@@ -22,7 +22,7 @@
           <ion-label>AQI</ion-label>
           <ion-note slot="end">{{ pollutionData.aqi }}</ion-note>
         </ion-item>
-        <ion-list-header>Informaçoẽs atmosféricas</ion-list-header>
+        <ion-list-header>Informações atmosféricas</ion-list-header>
         <ion-item>
           <ion-label>NO2</ion-label>
           <ion-card-subtitle>(Oxido de nitrogênio)</ion-card-subtitle>
