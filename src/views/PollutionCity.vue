@@ -1,8 +1,6 @@
 <template>
-  <IonVuePage :title="'Poluição por cidade'">
-    <div class="container">
-      <PollutionCard></PollutionCard>
-    </div>
+  <IonVuePage :title="'Poluição do ar por cidade'">
+    <PollutionCard></PollutionCard>
   </IonVuePage>
 </template>
 

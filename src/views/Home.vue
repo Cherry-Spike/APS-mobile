@@ -1,5 +1,5 @@
 <template>
-  <IonVuePage :title="'Poluição no mundo 🗺'" :showBackButton="false">
+  <IonVuePage :title="'🗺 Índice de poluição do ar'" :showBackButton="false">
     <ion-list>
       <ion-item v-for="(page, i) in links" :key="i">
         <router-link :to="page.link">{{ page.title }}</router-link>
@@ -12,7 +12,13 @@
 export default {
   data() {
     return {
-      links: [{ title: "Poluição por cidade", link: "pollution-city" }],
+      links: [
+        { title: "Poluição do ar por cidade", link: "pollution-city" },
+        {
+          title: "Cidades do Brasil com piores índices",
+          link: "pollution-brazil",
+        },
+      ],
     };
   },
 };
