@@ -23,7 +23,7 @@
         <ion-list-header>Índice de qualidade do ar</ion-list-header>
         <ion-item>
           <div class="centered">
-            <ion-badge color="success" class="draw-circle">
+            <ion-badge color="dark" class="draw-circle" id="cir">
               <ion-label>{{ pollutionData.aqi }}</ion-label>
             </ion-badge>
           </div>
@@ -139,8 +139,19 @@ export default defineComponent({
         })
         .catch((error) => console.log(error));
     },
+
+    changeColor(){
+      if (this.pollutionData.aqi <= 50) {
+        document.getElementById('cir').style.backgroundColor = "#08f500";
+        console.log(this.pollutionData.aqi)
+      }
+      if (this.pollutionData.aqi > 50 && this.pollutionData.aqi <= 100) {
+        document.getElementById('cir').style.backgroundColor = "#e9f500";
+      }
+      console.log(this.pollutionData.aqi)
+    }
   },
-});
+})
 </script>
 
 <style scoped>
@@ -152,10 +163,9 @@ export default defineComponent({
   .draw-circle {
     width: 70px;
     height: 70px;
-    background: rgb(21, 182, 0);
     border-radius: 50%;
     top: 50%;
-    display: flex; /* or inline-flex */
+    display: flex;
     align-items: center; 
     justify-content: center;
     font-size: 1.5em;
