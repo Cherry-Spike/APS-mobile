@@ -13,9 +13,13 @@ export default {
   data() {
     return {
       links: [
-        { title: "Poluição do ar por cidade", link: "pollution-city" },
+        { title: "Poluição do ar por cidade", link: "pollution-search-city" },
         {
-          title: "Cidades do Brasil com piores índices",
+          title: "Piores índices por países",
+          link: "ranking-countries",
+        },
+        {
+          title: "Piores índices por cidades do Brasil",
           link: "pollution-brazil",
         },
       ],
