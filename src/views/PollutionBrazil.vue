@@ -1,14 +1,14 @@
 <template>
   <IonVuePage :title="'Ranking do Brasil'">
-    <PollutionBrazilCard></PollutionBrazilCard>
+    <PollutionCityCard :countryCode="'BR'"></PollutionCityCard>
   </IonVuePage>
 </template>
 
 <script>
-import PollutionBrazilCard from "@/components/card/PollutionBrazilCard.vue";
+import PollutionCityCard from "@/components/card/PollutionCityCard.vue";
 export default {
   components: {
-    PollutionBrazilCard,
+    PollutionCityCard,
   },
 };
 </script>

@@ -1,14 +1,17 @@
 <template>
-  <IonVuePage :title="'Poluição do ar por cidade'">
-    <PollutionCard></PollutionCard>
+  <IonVuePage :title="this.title">
+    <PollutionCityCard :countryCode="this.country"></PollutionCityCard>
   </IonVuePage>
 </template>
 
 <script>
-import PollutionCard from "@/components/card/PollutionCard.vue";
+import PollutionCityCard from "@/components/card/PollutionCityCard.vue";
 export default {
   components: {
-    PollutionCard,
+    PollutionCityCard,
   },
+  data: () => ({
+    title: `Ranking ${this.country}`,
+  }),
 };
 </script>

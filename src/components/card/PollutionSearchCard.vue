@@ -75,7 +75,7 @@ import {
 import { defineComponent, ref } from "vue";
 import axios from "axios";
 export default defineComponent({
-  name: "PollutionCard",
+  name: "PollutionSearchCard",
   components: {
     IonCard,
     IonCardContent,

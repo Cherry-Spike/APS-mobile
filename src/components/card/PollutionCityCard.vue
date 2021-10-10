@@ -31,7 +31,10 @@ import {
 import { defineComponent, ref } from "vue";
 import axios from "axios";
 export default defineComponent({
-  name: "PollutionCard",
+  name: "PollutionCityCard",
+  props: {
+    countryCode: String,
+  },
   components: {
     IonCard,
     IonCardContent,
@@ -66,7 +69,7 @@ export default defineComponent({
       this.NoResults = true;
 
       axios
-        .get(`https://waqi.info/rtdata/ranking/BR.json`)
+        .get(`https://waqi.info/rtdata/ranking/${this.countryCode}.json`)
         .then((response) => {
           this.setOpen(false);
           let cities = response.data.cities;

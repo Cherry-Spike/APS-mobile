@@ -29,12 +29,15 @@ import {
   IonCardTitle,
   IonNote,
   IonLoading,
+  IonItem,
+  IonList,
+  IonLabel,
 } from "@ionic/vue";
 import { defineComponent, ref } from "vue";
 import axios from "axios";
 import { countryCodeEmoji } from "country-code-emoji";
 export default defineComponent({
-  name: "PollutionCard",
+  name: "PollutionRankingCard",
   components: {
     IonCard,
     IonCardContent,
@@ -42,6 +45,9 @@ export default defineComponent({
     IonCardTitle,
     IonNote,
     IonLoading,
+    IonItem,
+    IonList,
+    IonLabel,
   },
   setup() {
     const isOpenRef = ref(false);
@@ -76,7 +82,7 @@ export default defineComponent({
           this.countries = countries.map((country) => {
             let countryMap = {
               flag: country.country ? countryCodeEmoji(country.country) : "❓",
-              name: country.country ? country.country : "❓",
+              name: country.country ? country.country.toLowerCase() : "❓",
               indice: country.aqi ? country.aqi : "❓",
             };
             return countryMap;
