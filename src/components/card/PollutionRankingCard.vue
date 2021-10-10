@@ -7,12 +7,14 @@
   </ion-loading>
   <ion-card v-if="NoResults == false">
     <ion-card-header>
-      <ion-card-title>Cidades</ion-card-title>
+      <ion-card-title>Brasil </ion-card-title>
     </ion-card-header>
-    <ion-list v-for="(city, i) in cities" :key="i">
+    <ion-list v-for="(country, i) in countries" :key="i">
       <ion-item>
-        <ion-label>#{{ i + 1 }} {{ city.name }}</ion-label>
-        <ion-note slot="end">{{ city.indice }}</ion-note>
+        <ion-label
+          >#{{ i + 1 }} {{ country.flag }} {{ country.name }}</ion-label
+        >
+        <ion-note slot="end">{{ country.indice }}</ion-note>
       </ion-item>
     </ion-list>
   </ion-card>
@@ -30,6 +32,7 @@ import {
 } from "@ionic/vue";
 import { defineComponent, ref } from "vue";
 import axios from "axios";
+import { countryCodeEmoji } from "country-code-emoji";
 export default defineComponent({
   name: "PollutionCard",
   components: {
@@ -48,10 +51,10 @@ export default defineComponent({
   },
   data: () => ({
     country: "",
-    cities: [
+    countries: [
       {
         name: "",
-        stationLocation: "",
+        flag: "",
         indice: 0,
       },
     ],
@@ -66,18 +69,17 @@ export default defineComponent({
       this.NoResults = true;
 
       axios
-        .get(`https://waqi.info/rtdata/ranking/BR.json`)
+        .get(`https://waqi.info/rtdata/ranking/index2.json`)
         .then((response) => {
           this.setOpen(false);
-          let cities = response.data.cities;
-          this.country = cities[0].country;
-          this.cities = cities.map((city) => {
-            let cityMap = {
-              name: city.city ? city.city : "❓",
-              stationLocation: city.station.n ? city.station.n : "❓",
-              indice: city.station.a ? city.station.a : "❓",
+          let countries = response.data.cities;
+          this.countries = countries.map((country) => {
+            let countryMap = {
+              flag: country.country ? countryCodeEmoji(country.country) : "❓",
+              name: country.country ? country.country : "❓",
+              indice: country.aqi ? country.aqi : "❓",
             };
-            return cityMap;
+            return countryMap;
           });
 
           this.NoResults = false;

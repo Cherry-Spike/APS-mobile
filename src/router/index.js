@@ -12,6 +12,7 @@ const routes = [
   },
   { path: '/pollution-city', component: () => import('@/views/PollutionCity.vue') },
   { path: '/pollution-brazil', component: () => import('@/views/PollutionBrazil.vue') },
+  { path: '/ranking-countries', component: () => import('@/views/PollutionRanking.vue') },
 ]
 
 const router = createRouter({
