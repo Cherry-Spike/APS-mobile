@@ -23,7 +23,7 @@
         <ion-list-header>Índice de qualidade do ar</ion-list-header>
         <ion-item>
           <div class="centered">
-            <ion-badge color="dark" class="draw-circle" id="cir">
+            <ion-badge id="circulo" class="draw-circle">
               <ion-label>{{ pollutionData.aqi }}</ion-label>
             </ion-badge>
           </div>
@@ -74,6 +74,7 @@ import {
   IonNote,
   IonLoading,
   IonLabel,
+  IonBadge
 } from "@ionic/vue";
 import { defineComponent, ref } from "vue";
 import axios from "axios";
@@ -92,6 +93,7 @@ export default defineComponent({
     IonNote,
     IonLoading,
     IonLabel,
+    IonBadge
   },
   setup() {
     const isOpenRef = ref(false);
@@ -101,10 +103,14 @@ export default defineComponent({
   },
   data: () => ({
     pollutionData: { name: "", aqi: 0, co: 0, no2: 0, o3: 0, pm10: 0, pm25: 0 },
+    ColorRankData: { value: ""},
     cityNotFound: true,
   }),
   mounted() {
-    this.getCity("Jundiai");
+    this.getCity("Jundiai");  
+  },
+  ionViewDidEnter() {
+    this.changeColor();
   },
   methods: {
     getCity(name) {
@@ -133,22 +139,23 @@ export default defineComponent({
               pm10: data.iaqi.pm10 ? data.iaqi.pm10.v : "❓",
               pm25: data.iaqi.pm25 ? data.iaqi.pm25.v : "❓",
             };
-
             this.cityNotFound = false;
+            }
+          if (data.aqi <= 50) {
+            //document.getElementById('circulo').style.setProperty('--background', '#08f500');
+            this.ColorRankData.value = "#00FF00"
+            console.log(this.ColorRankData.value)
           }
-        })
+          if (data.aqi > 50 && data.api <= 100) {
+            //document.getElementById('circulo').style.backgroundColor = "#e9f500";
+            this.ColorRankData.value = "#e9f500"
+          }
+          console.log(this.ColorRankData.value)
+        })     
         .catch((error) => console.log(error));
     },
-
     changeColor(){
-      if (this.pollutionData.aqi <= 50) {
-        document.getElementById('cir').style.backgroundColor = "#08f500";
-        console.log(this.pollutionData.aqi)
-      }
-      if (this.pollutionData.aqi > 50 && this.pollutionData.aqi <= 100) {
-        document.getElementById('cir').style.backgroundColor = "#e9f500";
-      }
-      console.log(this.pollutionData.aqi)
+      document.getElementById("circulo").style.setProperty("--background:", this.ColorRankData.value);
     }
   },
 })
