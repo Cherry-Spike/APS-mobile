@@ -12,7 +12,7 @@
     <ion-list v-for="(city, i) in cities" :key="i">
       <ion-item>
         <ion-label>#{{ i + 1 }} {{ city.name }}</ion-label>
-        <ion-note slot="end">{{ city.indice }}</ion-note>
+        <AqiBadge :aqi="city.indice"></AqiBadge>
       </ion-item>
     </ion-list>
   </ion-card>
@@ -20,12 +20,12 @@
 </template>
 
 <script>
+import AqiBadge from "@/components/AqiBadge.vue";
 import {
   IonCard,
   IonCardContent,
   IonCardHeader,
   IonCardTitle,
-  IonNote,
   IonLoading,
 } from "@ionic/vue";
 import { defineComponent, ref } from "vue";
@@ -40,8 +40,8 @@ export default defineComponent({
     IonCardContent,
     IonCardHeader,
     IonCardTitle,
-    IonNote,
     IonLoading,
+    AqiBadge,
   },
   setup() {
     const isOpenRef = ref(false);

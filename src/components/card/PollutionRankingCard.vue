@@ -6,15 +6,12 @@
   >
   </ion-loading>
   <ion-card v-if="NoResults == false">
-    <ion-card-header>
-      <ion-card-title>Brasil </ion-card-title>
-    </ion-card-header>
     <ion-list v-for="(country, i) in countries" :key="i">
       <ion-item>
         <ion-label
           >#{{ i + 1 }} {{ country.flag }} {{ country.name }}</ion-label
         >
-        <ion-note slot="end">{{ country.indice }}</ion-note>
+        <AqiBadge :aqi="country.indice"></AqiBadge>
       </ion-item>
     </ion-list>
   </ion-card>
@@ -22,12 +19,10 @@
 </template>
 
 <script>
+import AqiBadge from "@/components/AqiBadge.vue";
 import {
   IonCard,
   IonCardContent,
-  IonCardHeader,
-  IonCardTitle,
-  IonNote,
   IonLoading,
   IonItem,
   IonList,
@@ -41,13 +36,11 @@ export default defineComponent({
   components: {
     IonCard,
     IonCardContent,
-    IonCardHeader,
-    IonCardTitle,
-    IonNote,
     IonLoading,
     IonItem,
     IonList,
     IonLabel,
+    AqiBadge,
   },
   setup() {
     const isOpenRef = ref(false);
