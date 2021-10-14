@@ -8,10 +8,9 @@
   <ion-card v-if="NoResults == false">
     <ion-list v-for="(country, i) in countries" :key="i">
       <ion-item>
-        <ion-label
-          >#{{ i + 1 }} {{ country.flag }} {{ country.name }}</ion-label
-        >
-        <AqiBadge :aqi="country.indice"></AqiBadge>
+        <ion-label>
+          #{{ i + 1 }} {{ country.flag }} {{ country.name }}</ion-label>
+        <AqiBadge :aqi="country.indice" :id="country.name"></AqiBadge>
       </ion-item>
     </ion-list>
   </ion-card>
