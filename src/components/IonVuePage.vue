@@ -1,7 +1,7 @@
 <template>
-  <ion-page class="ion-page" main>
+  <ion-page main>
     <ion-header>
-      <ion-toolbar>
+      <ion-toolbar color="primary">
         <ion-title>{{ title }}</ion-title>
         <ion-buttons v-if="showBackButton" slot="start">
           <ion-back-button default-href="/" />
@@ -71,5 +71,9 @@ export default {
 }
 .cherry-spike-logo {
   width: 3rem;
+}
+ion-footer {
+  background-color: #00796b;
+  color: #fff;
 }
 </style>

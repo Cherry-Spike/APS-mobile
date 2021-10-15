@@ -6,12 +6,12 @@
   >
   </ion-loading>
   <ion-card v-if="NoResults == false">
-    <ion-card-header>
+    <ion-card-header color="secondary">
       <ion-card-title>Cidades</ion-card-title>
     </ion-card-header>
     <ion-list v-for="(city, i) in cities" :key="i">
       <ion-item>
-        <ion-label>#{{ i + 1 }} {{ city.name }}</ion-label>
+        <ion-label>{{ i + 1 }} {{ city.name }}</ion-label>
         <AqiBadge :aqi="city.indice"></AqiBadge>
       </ion-item>
     </ion-list>

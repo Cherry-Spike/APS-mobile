@@ -5,6 +5,7 @@
         <router-link :to="page.link">{{ page.title }}</router-link>
       </ion-item>
     </ion-list>
+    <img class="img-world" src="@/../public/assets/world.svg" alt="AQI Index" />
   </IonVuePage>
 </template>
 
@@ -31,5 +32,13 @@ export default {
 a {
   text-decoration: none;
   color: black;
+}
+.aqi-index {
+  max-width: 26rem;
+}
+.img-world {
+  width: 100%;
+  height: auto;
+  margin-top: 2em;
 }
 </style>

@@ -1,8 +1,19 @@
 <template>
-  <div id="aqibadge"></div>
-  <IonBadge id="'idPrefix'">
-    <IonLabel>{{ aqi }}</IonLabel></IonBadge
-  >
+  <ion-row>
+    <ion-col v-if="isLarge" size="12" class="ion-text-center">
+      <ion-badge class="badge-index" :style="badgeColor">
+        <ion-label class="badge-index-label">{{ aqi }}</ion-label></ion-badge
+      >
+    </ion-col>
+    <ion-col v-else size="12" class="ion-text-center">
+      <ion-badge :style="badgeColor">
+        <ion-label>{{ aqi }}</ion-label></ion-badge
+      >
+    </ion-col>
+    <ion-col size="12" class="ion-text-center">
+      <span v-if="showLabel">{{ indexLabel }}</span>
+    </ion-col>
+  </ion-row>
 </template>
 <script>
 import { defineComponent } from "vue";
@@ -11,8 +22,10 @@ export default defineComponent({
   name: "AqiBadge",
   props: {
     aqi: Number,
-    idPrefix: String
+    showLabel: Boolean,
+    isLarge: Boolean,
   },
+  data: () => ({ badgeColor: String, indexLabel: String }),
   components: { IonBadge, IonLabel },
 
   mounted() {
@@ -21,27 +34,32 @@ export default defineComponent({
   methods: {
     setBadgeColor(aqi) {
       if (aqi <= 50) {
-        this.changeColor("#009966");
+        this.badgeColor = { backgroundColor: "#009966" };
+        this.indexLabel = "Bom";
+      } else if (aqi <= 100) {
+        this.badgeColor = { backgroundColor: "#ffde33" };
+        this.indexLabel = "Moderado";
+      } else if (aqi <= 150) {
+        this.badgeColor = { backgroundColor: "#ff9933" };
+        this.indexLabel = "Insalubre para grupos sensíveis";
+      } else if (aqi <= 200) {
+        this.badgeColor = { backgroundColor: "#cc0033" };
+        this.indexLabel = "Insalubre";
+      } else if (aqi <= 300) {
+        this.badgeColor = { backgroundColor: "#660099" };
+        this.indexLabel = "Muito Insalubre";
+      } else {
+        this.badgeColor = { backgroundColor: "#7e0023" };
+        this.indexLabel = "Perigoso";
       }
-      if (aqi > 50 && aqi <= 100) {
-        this.changeColor("#ffde33");
-      }
-      if (aqi > 100 && aqi <= 150) {
-        this.changeColor("#ff9933");
-      }
-      if (aqi > 150 && aqi <= 200) {
-        this.changeColor("#cc0033");
-      }
-      if (aqi > 200 && aqi <= 300) {
-        this.changeColor("#660099");
-      }
-      if (aqi > 300) {
-        this.changeColor("#7e0023");
-      }
-    },
-    changeColor(color) {
-      document.getElementById("badge-" + this.idPrefix).style.background = color;
     },
   },
 });
 </script>
+<style scoped>
+.badge-index {
+  width: 100%;
+  font-size: 3em;
+  display: inline-block;
+}
+</style>

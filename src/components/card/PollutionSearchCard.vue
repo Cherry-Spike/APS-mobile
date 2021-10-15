@@ -22,9 +22,14 @@
       <ion-list>
         <ion-list-header>Índice de qualidade do ar</ion-list-header>
         <ion-item>
-          <div class="centered">
-            <AqiBadge class="draw-circle" :aqi="pollutionData.aqi"></AqiBadge>
-          </div>
+          <ion-grid>
+            <AqiBadge
+              class="badge"
+              :isLarge="true"
+              :aqi="pollutionData.aqi"
+              :showLabel="true"
+            ></AqiBadge>
+          </ion-grid>
         </ion-item>
         <ion-list-header>Informações atmosféricas</ion-list-header>
         <ion-item>
@@ -141,13 +146,3 @@ export default defineComponent({
   },
 });
 </script>
-<style scoped>
-.centered {
-  margin: auto;
-}
-.draw-circle {
-  padding: 1rem;
-  font-size: 2em;
-  border-radius: 100%;
-}
-</style>
