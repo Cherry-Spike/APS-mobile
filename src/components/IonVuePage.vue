@@ -2,7 +2,7 @@
   <ion-page main>
     <ion-header>
       <ion-toolbar color="primary">
-        <ion-title>{{ title }}</ion-title>
+        <ion-title class="ion-text-nowrap">{{ title }}</ion-title>
         <ion-buttons v-if="showBackButton" slot="start">
           <ion-back-button default-href="/" />
         </ion-buttons>
