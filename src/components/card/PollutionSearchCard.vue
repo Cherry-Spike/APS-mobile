@@ -117,11 +117,11 @@ export default defineComponent({
   },
   methods: {
     getCity(name) {
-      this.setOpen(true);
+      //this.setOpen(true);
       this.cityNotFound = true;
 
       if (name.length < 1) {
-        this.setOpen(false);
+        //this.setOpen(false);
         return;
       }
 
@@ -130,7 +130,7 @@ export default defineComponent({
           `http://api.waqi.info/feed/${name}/?token=5aec0c4d5d22e411de1c9c28e35562c1c3063bb6`
         )
         .then((response) => {
-          this.setOpen(false);
+          //this.setOpen(false);
           let data = response.data.data;
           if (data != "Unknown station") {
             this.pollutionData = {
