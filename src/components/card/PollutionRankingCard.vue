@@ -2,6 +2,7 @@
   <ion-loading
     :is-open="isOpenRef"
     message="Carregando..."
+    :duration="timeout"
     @didDismiss="setOpen(false)"
   >
   </ion-loading>
@@ -41,6 +42,9 @@ export default defineComponent({
     IonList,
     IonLabel,
     AqiBadge,
+  },
+  props: {
+    timeout: { type: Number, default: 2000 },
   },
   setup() {
     const isOpenRef = ref(false);

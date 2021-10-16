@@ -2,6 +2,7 @@
   <ion-loading
     :is-open="isOpenRef"
     message="Carregando..."
+    :duration="timeout"
     @didDismiss="setOpen(false)"
   >
   </ion-loading>
@@ -34,6 +35,7 @@ export default defineComponent({
   name: "PollutionCityCard",
   props: {
     countryCode: String,
+    timeout: { type: Number, default: 2000 },
   },
   components: {
     IonCard,
