@@ -1,7 +1,7 @@
 <template>
   <ion-searchbar
     type="text"
-    debounce="1000"
+    debounce="1600"
     @ionChange="getCity($event.target.value)"
     clear-input
     placeholder="Digite a cidade"
