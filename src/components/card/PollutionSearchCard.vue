@@ -61,7 +61,10 @@
       </ion-list>
     </ion-card-content>
   </ion-card>
-  <ion-card-content v-else>Cidade não encontrada</ion-card-content>
+  <ion-card-content v-else
+    ><span>Cidade não encontrada</span>
+    <div id="card-error"></div>
+  </ion-card-content>
 </template>
 
 <script>
@@ -117,35 +120,45 @@ export default defineComponent({
   },
   methods: {
     getCity(name) {
-      //this.setOpen(true);
-      this.cityNotFound = true;
+      try {
+        this.setOpen(true);
+        this.cityNotFound = true;
 
-      if (name.length < 1) {
-        //this.setOpen(false);
-        return;
+        if (name.length < 1) {
+          this.setOpen(false);
+          return;
+        }
+
+        axios
+          .get(
+            `http://api.waqi.info/feed/${name}/?token=5aec0c4d5d22e411de1c9c28e35562c1c3063bb6`
+          )
+          .then((response) => {
+            this.setOpen(false);
+            let data = response.data.data;
+            if (response.data.status == "ok") {
+              this.pollutionData = {
+                name: data.city.name ? data.city.name : "❓",
+                aqi: data.aqi ? data.aqi : "❓",
+                co: data.iaqi.co ? data.iaqi.co.v : "❓",
+                no2: data.iaqi.no2 ? data.iaqi.no2.v : "❓",
+                o3: data.iaqi.o3 ? data.iaqi.o3.v : "❓",
+                pm10: data.iaqi.pm10 ? data.iaqi.pm10.v : "❓",
+                pm25: data.iaqi.pm25 ? data.iaqi.pm25.v : "❓",
+              };
+              this.cityNotFound = false;
+            }
+          })
+          .catch((error) => {
+            document.getElementById(
+              "card-error"
+            ).innerHTML = `<span>${error}</span>`;
+          });
+      } catch (error) {
+        document.getElementById(
+          "card-error"
+        ).innerHTML = `<span>${error}</span>`;
       }
-
-      axios
-        .get(
-          `http://api.waqi.info/feed/${name}/?token=5aec0c4d5d22e411de1c9c28e35562c1c3063bb6`
-        )
-        .then((response) => {
-          //this.setOpen(false);
-          let data = response.data.data;
-          if (data != "Unknown station") {
-            this.pollutionData = {
-              name: data.city.name ? data.city.name : "❓",
-              aqi: data.aqi ? data.aqi : "❓",
-              co: data.iaqi.co ? data.iaqi.co.v : "❓",
-              no2: data.iaqi.no2 ? data.iaqi.no2.v : "❓",
-              o3: data.iaqi.o3 ? data.iaqi.o3.v : "❓",
-              pm10: data.iaqi.pm10 ? data.iaqi.pm10.v : "❓",
-              pm25: data.iaqi.pm25 ? data.iaqi.pm25.v : "❓",
-            };
-            this.cityNotFound = false;
-          }
-        })
-        .catch((error) => console.log(error));
     },
   },
 });
