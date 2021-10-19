@@ -131,7 +131,7 @@ export default defineComponent({
 
         axios
           .get(
-            `http://api.waqi.info/feed/${name}/?token=5aec0c4d5d22e411de1c9c28e35562c1c3063bb6`
+            `https://api.waqi.info/feed/${name}/?token=5aec0c4d5d22e411de1c9c28e35562c1c3063bb6`
           )
           .then((response) => {
             this.setOpen(false);
